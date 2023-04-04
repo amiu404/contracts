@@ -21,7 +21,8 @@ Users can also check if a campaign is enabled, required, or if an account is whi
 
 Finally, there are two functions that return bonus rates: bonusRate and boostedRate. The bonusRate function takes in a campaign ID and a current amount, and returns the bonus rate for that amount. The boostedRate function takes in a campaign ID and a referrer address, and returns the boosted rate for that referrer.
 
-#$zkUSD
+# $zkUSD
+
 This is a Solidity smart contract that implements an ERC20 token with additional functionality for vesting and access control. The contract inherits from the OpenZeppelin ERC20Upgradeable and AccessControlUpgradeable contracts.
 
 The contract defines two new roles for minting and burning tokens called MINTER_ROLE and BURNER_ROLE, respectively. It also has a new state variable called isPaused, which can be used to pause token transfers in certain situations.
@@ -33,6 +34,21 @@ The contract overrides the _beforeTokenTransfer and _afterTokenTransfer function
 The contract has several setter and getter functions for modifying the vesting contract, default spenders, and pause state. It also has functions for minting, burning, and putting tokens on hold for a specific address. The contract uses the OpenZeppelin initializer function to initialize the contract during deployment.
 
 Overall, this contract is a solid implementation of an ERC20 token with additional functionality for vesting and access control.
+
+# Upgradable
+
+The code is a Solidity smart contract called Upgradeable that inherits from the Initializable, UUPSUpgradeable, and OwnableUpgradeable contracts from the OpenZeppelin library.
+
+The SPDX-License-Identifier is a comment that specifies the license under which the contract is released. In this case, it is specified as UNLICENSED.
+
+The pragma statement specifies the version of Solidity required to compile the contract. In this case, it requires version 0.8.17 or later.
+
+The contract has a constructor that calls the _disableInitializers() function inherited from Initializable. This function prevents the contract from being initialized more than once.
+
+The contract also has an internal function _authorizeUpgrade that overrides the corresponding function in UUPSUpgradeable. This function is called when a new contract implementation is being upgraded, and it only allows the owner of the contract to authorize the upgrade.
+
+Overall, this contract provides a framework for upgrading the implementation of a smart contract while ensuring that only the owner can authorize the upgrade.
+
 # Vesting
 
 This is a Solidity smart contract for vesting tokens. It includes several structs to define the vesting plan, volume by wallet, and plans by token and user. There are also functions to create a vesting plan, get the locked amount of tokens, and update the used volume after a transfer.

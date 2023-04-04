@@ -33,7 +33,8 @@ The contract overrides the _beforeTokenTransfer and _afterTokenTransfer function
 The contract has several setter and getter functions for modifying the vesting contract, default spenders, and pause state. It also has functions for minting, burning, and putting tokens on hold for a specific address. The contract uses the OpenZeppelin initializer function to initialize the contract during deployment.
 
 Overall, this contract is a solid implementation of an ERC20 token with additional functionality for vesting and access control.
-#Vesting
+# Vesting
+
 This is a Solidity smart contract for vesting tokens. It includes several structs to define the vesting plan, volume by wallet, and plans by token and user. There are also functions to create a vesting plan, get the locked amount of tokens, and update the used volume after a transfer.
 
 The initialize() function is the initializer that sets the owner of the contract using the OpenZeppelin __Ownable_init() function.

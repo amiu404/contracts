@@ -120,7 +120,9 @@ contract zkERC20 is Upgradeable, ERC20Upgradeable, AccessControlUpgradeable {
     }
 
     function freeBalanceOf(address account) public view returns (uint256) {
-        return balanceOf(account) - lockBalanceOf(account);
+        uint256 _locked = lockBalanceOf(account);
+        uint256 _balance = balanceOf(account);
+        return _locked < _balance ? _balance - _locked : 0;
     }
 
     function lockBalanceOf(address account) public view returns (uint256) {
@@ -134,7 +136,9 @@ contract zkERC20 is Upgradeable, ERC20Upgradeable, AccessControlUpgradeable {
         address account,
         address spender
     ) public view returns (uint256) {
-        return balanceOf(account) - lockBalanceBySpender(account, spender);
+        uint256 _locked = lockBalanceBySpender(account, spender);
+        uint256 _balance = balanceOf(account);
+        return _locked < _balance ? _balance - _locked : 0;
     }
 
     function lockBalanceBySpender(

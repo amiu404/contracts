@@ -200,10 +200,12 @@ contract Vesting is Upgradeable {
     ) private view returns (uint256 lockAmount, uint256 freeAmount) {
         uint256 _lockByTime;
         // lock by time
-        uint256 _days = (block.timestamp - plan.startTime) / (1 days);
+        uint256 _days = block.timestamp > plan.startTime
+            ? (block.timestamp - plan.startTime) / (1 days)
+            : 0;
         if (_days < plan.lockDuration) {
             _lockByTime = plan.amount;
-        } else if (_days - plan.lockDuration < plan.vestingDuration) {
+        } else if (_days < plan.vestingDuration + plan.lockDuration) {
             _lockByTime =
                 (plan.amount *
                     (plan.lockDuration + plan.vestingDuration - _days - 1)) /

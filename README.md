@@ -21,4 +21,27 @@ Users can also check if a campaign is enabled, required, or if an account is whi
 
 Finally, there are two functions that return bonus rates: bonusRate and boostedRate. The bonusRate function takes in a campaign ID and a current amount, and returns the bonus rate for that amount. The boostedRate function takes in a campaign ID and a referrer address, and returns the boosted rate for that referrer.
 
-#
+#$zkUSD
+This is a Solidity smart contract that implements an ERC20 token with additional functionality for vesting and access control. The contract inherits from the OpenZeppelin ERC20Upgradeable and AccessControlUpgradeable contracts.
+
+The contract defines two new roles for minting and burning tokens called MINTER_ROLE and BURNER_ROLE, respectively. It also has a new state variable called isPaused, which can be used to pause token transfers in certain situations.
+
+The contract also has a vestingContract variable of type IVestingContract, which is an interface for a separate contract that manages vesting schedules. The contract uses this interface to ensure that token transfers don't exceed the available vesting balance.
+
+The contract overrides the _beforeTokenTransfer and _afterTokenTransfer functions to implement additional logic for checking vesting and transferring vested tokens. The _spendAllowance function is also overridden to allow for default spenders that don't require an explicit approval.
+
+The contract has several setter and getter functions for modifying the vesting contract, default spenders, and pause state. It also has functions for minting, burning, and putting tokens on hold for a specific address. The contract uses the OpenZeppelin initializer function to initialize the contract during deployment.
+
+Overall, this contract is a solid implementation of an ERC20 token with additional functionality for vesting and access control.
+#Vesting
+This is a Solidity smart contract for vesting tokens. It includes several structs to define the vesting plan, volume by wallet, and plans by token and user. There are also functions to create a vesting plan, get the locked amount of tokens, and update the used volume after a transfer.
+
+The initialize() function is the initializer that sets the owner of the contract using the OpenZeppelin __Ownable_init() function.
+
+The createVesting() function creates a new vesting plan for a user and token. It transfers the amount of tokens from the sender (msg.sender) to the user, and adds the plan to the vesting mapping. It also emits a NewVestingPlan event.
+
+The getAmountLock() function calculates the locked amount of tokens for a user and token. It loops through all the plans for the user and token, and calls the _getAmountLock() function for each plan to calculate the locked amount. It also checks the rollover value for each plan, and reduces the volume available for future plans.
+
+The getAmountLockBySpender() function calculates the locked amount of tokens for a user and token, excluding the spender. It simply calls the getAmountLock() function and returns the result if the spender is not excluded for the token, or 0 if it is excluded.
+
+The transfer() function is called by the transfer() function of the token contract. It updates the used volume for the sender, and releases the locked tokens for the receiver. If the receiver is a special spender for the token, it reduces the lock amount to the maximum possible. The function loops through all the plans for the sender and token, and calls the _getAmountLock() function for each plan to calculate the locked and free amounts. It also updates the plan released amount and the active plan index.

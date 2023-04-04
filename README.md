@@ -8,3 +8,15 @@ The contract also has a struct called "CampaignData" which contains the total am
 The contract has functions for initializing the contract, locking stablecoin and earning shares, claiming the dropped token, and checking the amount of stablecoin locked and the amount of the dropped token claimed by a user. The contract also has a function for checking the referrer of a user and calculating the bonus shares for the referrer.
 
 The contract uses other contracts such as the "Upgradeable" contract, the "IERC20" interface, the "IVesting" interface, and the "IReferral" interface. The contract also uses the "SignatureChecker" library from the OpenZeppelin library for checking the signature of an address.
+# Goal3.xyz Lockdrop Referral
+This is a smart contract written in Solidity. Here's a brief explanation of what it does:
+
+The contract is called Referral and it manages referral campaigns. Referral campaigns are created by calling the createCampaign function, passing in various parameters such as bonus amounts, bonus rates, and whether or not referrals are required. Referral campaigns can also be updated by calling the setBoostedRateByReferrers, setBonusRates, and setWhitelisted functions.
+
+Users can check if they have a referrer by calling the checkReferrer function, which takes in a campaign ID, a referee address, a referrer address, and a referrer volume. If the referee is already whitelisted, the function will return address(0). If the referee already has a referrer, the function will return the current referrer's address. Otherwise, the function will require that the referrer is not address(0) and that the referrer volume is greater than 0. If these conditions are met, the function will update the referrer and return the referrer's address.
+
+Users can get the referrer of a given referee by calling the getReferrer function, passing in the campaign ID and the referee address.
+
+Users can also check if a campaign is enabled, required, or if an account is whitelisted by calling the isEnabled, isRequired, and isWhitelisted functions, respectively.
+
+Finally, there are two functions that return bonus rates: bonusRate and boostedRate. The bonusRate function takes in a campaign ID and a current amount, and returns the bonus rate for that amount. The boostedRate function takes in a campaign ID and a referrer address, and returns the boosted rate for that referrer.
